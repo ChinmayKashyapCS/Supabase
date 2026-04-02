@@ -18,14 +18,18 @@ export default function Home() {
       .eq("password",password)
       .single()
 
-    if(data) localStorage.setItem("user",JSON.stringify(data))
+    if(data){
+      localStorage.setItem("user",JSON.stringify(data))
+      window.location.href="/dashboard"
+    }
   }
 
   return (
-    <div>
-      <h1>Golf App</h1>
+    <div style={{padding:"40px"}}>
+      <h1>Golf Charity App</h1>
       <input placeholder="email" onChange={e=>setEmail(e.target.value)} />
       <input placeholder="password" onChange={e=>setPassword(e.target.value)} />
+      <br/><br/>
       <button onClick={signup}>Signup</button>
       <button onClick={login}>Login</button>
     </div>
