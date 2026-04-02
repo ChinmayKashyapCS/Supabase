@@ -6,26 +6,18 @@ export default function Charity() {
   const [list,setList]=useState([])
 
   useEffect(()=>{
-    supabase.from("charities").select("*").then(res=>setList(res.data))
+    supabase.from("charities").select("*").then(res=>setList(res.data || []))
   },[])
 
   return (
-    <div>
-      <h1>Charities</h1>
+    <div className="min-h-screen bg-black text-white p-10">
+      <h1 className="text-3xl mb-6">Charities</h1>
+
       {list.map(c=>(
-        <p key={c.id}>{c.name}</p>
+        <div key={c.id} className="bg-gray-800 p-4 mb-3 rounded">
+          {c.name}
+        </div>
       ))}
     </div>
   )
-}
-const subscribe = async () => {
-  const user = JSON.parse(localStorage.getItem("user"))
-
-  await supabase.from("subscriptions").insert({
-    user_id:user.id,
-    plan:"monthly",
-    status:"active"
-  })
-
-  alert("Subscribed")
 }
